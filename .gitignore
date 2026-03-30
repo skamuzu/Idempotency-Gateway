@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+jspm_packages/
+web_modules/
+
+# Logs and databases
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+.env
+.env.test
+
+# Build/Coverage Output
+dist/
+build/
+coverage/
+.nyc_output
+
+# IDE/Tools
+.vscode/
+.idea/
+.cache/
+.DS_Store
