@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { beforeEach, test } from "node:test";
 import request from "supertest";
-import { app } from "../../Idempotency-Gateway/src/app.ts";
-import { requestCoalescerStore } from "../../Idempotency-Gateway/src/store/coalescer.store.ts";
-import { idempotencyStore } from "../../Idempotency-Gateway/src/store/idempotency.store.ts";
+import { app } from "../../src/app.ts";
+import { requestCoalescerStore } from "../../src/store/coalescer.store.ts";
+import { idempotencyStore } from "../../src/store/idempotency.store.ts";
 
 beforeEach(() => {
   idempotencyStore.clear();
