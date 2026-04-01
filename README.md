@@ -2,6 +2,17 @@
 
 An Express + TypeScript service that prevents duplicate payment processing by enforcing idempotency at the API layer.
 
+## Live Status (UptimeRobot)
+
+This service is being monitored on UptimeRobot.
+
+![Service uptime monitor](./image.png)
+
+You can also monitor the interactive API docs endpoint directly:
+
+- Live Swagger Docs: `https://idempotency-gateway-5a84.onrender.com/docs`
+
+
 
 ## 1. Architecture Diagram
 
@@ -29,10 +40,13 @@ npm run dev
 Server starts on:
 
 - `http://localhost:3000`
+- Swagger UI: `http://localhost:3000/docs`
+- OpenAPI JSON: `http://localhost:3000/openapi.json`
 
 Live deployment:
 
 - `https://idempotency-gateway-5a84.onrender.com`
+- Swagger UI (live): `https://idempotency-gateway-5a84.onrender.com/docs`
 
 ### Build for production
 
@@ -57,6 +71,13 @@ npm test
 ### Endpoint
 
 - `POST /process-payment`
+
+### Interactive Swagger Docs
+
+This project serves Swagger docs directly from the app:
+
+- `GET /docs` → interactive Swagger UI
+- `GET /openapi.json` → raw OpenAPI 3.0 spec
 
 ### Required header
 
