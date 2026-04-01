@@ -5,7 +5,7 @@ An Express + TypeScript service that prevents duplicate payment processing by en
 
 ## 1. Architecture Diagram
 
-[![Architecture Diagram](./diagram-export-01-04-2026-15_05_52.png)](https://app.eraser.io/workspace/gney7qYS22DAjAQXbmgl?diagram=lRhYxT-joZa1EpxN9IOFd)
+[![Architecture Diagram](./diagram.png)](https://app.eraser.io/workspace/gney7qYS22DAjAQXbmgl?diagram=lRhYxT-joZa1EpxN9IOFd)
 
 ## 2. Setup Instructions
 
@@ -29,6 +29,10 @@ npm run dev
 Server starts on:
 
 - `http://localhost:3000`
+
+Live deployment:
+
+- `https://idempotency-gateway-5a84.onrender.com`
 
 ### Build for production
 

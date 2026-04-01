@@ -6,6 +6,10 @@
   "author": "",
   "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10"
+  },
   "scripts": {
     "test": "tsx --test src/tests/**/*.test.ts",
     "dev": "tsx watch src/index.ts",

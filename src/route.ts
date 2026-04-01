@@ -6,6 +6,12 @@ import { RequestSchema } from "./types.js";
 
 export const router = Router()
 
+/**Health check endpoint */
+router.get("/health", (_req, res) => {
+	return res.status(200).json({ success: true })
+})
+
+
 router.post(
 	"/process-payment",
 	validateSchema(RequestSchema),
