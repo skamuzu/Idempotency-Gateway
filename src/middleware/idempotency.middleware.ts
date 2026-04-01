@@ -1,11 +1,19 @@
 import { RequestHandler, Response, NextFunction, Request } from "express";
 import * as z from "zod";
-import { idempotencyStore } from "../store/idempotency.store.ts";
-import { requestCoalescerStore } from "../store/coalescer.store.ts";
-import { hashRequest, replayCachedResponse } from "../utils.ts";
+import { idempotencyStore } from "../store/idempotency.store.js";
+import { requestCoalescerStore } from "../store/coalescer.store.js";
+import { hashRequest, replayCachedResponse } from "../utils.js";
 
 const UUIDSchema = z.uuid();
 
+/**
+ * Enforces idempotency for payment requests.
+ *
+ * - Validates the `Idempotency-Key` header.
+ * - Replays cached responses for duplicates.
+ * - Rejects key reuse with different payloads.
+ * - Coalesces concurrent in-flight requests for the same key.
+ */
 export const idempotencyMiddleware = (): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const keyHeader = req.get("Idempotency-Key");
@@ -58,8 +66,11 @@ export const idempotencyMiddleware = (): RequestHandler => {
       });
     }
 
+    const createdAt = new Date();
+
     idempotencyStore.set(compositeKey, {
       requestHash,
+      createdAt,
     });
     requestCoalescerStore.begin(compositeKey);
 
@@ -79,6 +90,8 @@ export const idempotencyMiddleware = (): RequestHandler => {
           statusCode: res.statusCode,
           headers: res.getHeaders(),
         },
+        createdAt,
+        completedAt: new Date(),
       });
       requestCoalescerStore.complete(compositeKey);
 

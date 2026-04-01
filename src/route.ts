@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { processPayment } from "./controller.ts";
-import { validateSchema } from "./middleware/validation.middleware.ts";
-import { idempotencyMiddleware } from "./middleware/idempotency.middleware.ts";
-import { RequestSchema } from "./types.ts";
+import { processPayment } from "./controller.js";
+import { validateSchema } from "./middleware/validation.middleware.js";
+import { idempotencyMiddleware } from "./middleware/idempotency.middleware.js";
+import { RequestSchema } from "./types.js";
 
 export const router = Router()
 

@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { beforeEach, test } from "node:test";
 import request from "supertest";
-import { app } from "../../src/app.ts";
-import { requestCoalescerStore } from "../../src/store/coalescer.store.ts";
-import { idempotencyStore } from "../../src/store/idempotency.store.ts";
+import { app } from "../../app.js";
+import { requestCoalescerStore } from "../../store/coalescer.store.js";
+import { idempotencyStore } from "../../store/idempotency.store.js";
 
 beforeEach(() => {
   idempotencyStore.clear();
@@ -84,4 +84,15 @@ test("Bonus story: in-flight duplicate waits and reuses original response", { ti
 
   assert.ok(elapsedMs >= 1900, `Expected coalesced flow to wait for first request, got ${elapsedMs}ms`);
   assert.ok(elapsedMs < 3500, `Expected no double processing delay, got ${elapsedMs}ms`);
+});
+
+test("Expired idempotency key is removed on access (TTL)", () => {
+  idempotencyStore.set("expired-key", {
+    requestHash: "hash",
+    createdAt: new Date(Date.now() - (25 * 60 * 60 * 1000)),
+  });
+
+  const expired = idempotencyStore.get("expired-key");
+  assert.equal(expired, undefined);
+  assert.equal(idempotencyStore.get("expired-key"), undefined);
 });

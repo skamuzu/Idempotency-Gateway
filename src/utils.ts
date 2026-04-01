@@ -7,11 +7,17 @@ type CachedResponse = {
     headers: Record<string, string | number | string[] | undefined>;
 };
 
+/**
+ * Produces a stable SHA-256 hash for a request body payload.
+ */
 export function hashRequest(body:any): string {
     const content = JSON.stringify(body) || '';
     return createHash("sha256").update(content).digest("hex")
 }
 
+/**
+ * Replays a cached HTTP response and marks it as a cache hit.
+ */
 export function replayCachedResponse(
     res: Response,
     response: CachedResponse,

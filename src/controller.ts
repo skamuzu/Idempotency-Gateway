@@ -1,6 +1,9 @@
 import { Request, Response, RequestHandler } from "express";
-import { RequestBody } from "./types.ts";
+import { RequestBody } from "./types.js";
 
+/**
+ * Simulates payment processing and returns a success response after ~2 seconds.
+ */
 export const processPayment: RequestHandler = (req: Request, res: Response) => {
   const body: RequestBody = req.body;
   return res.setTimeout(2000, () => {

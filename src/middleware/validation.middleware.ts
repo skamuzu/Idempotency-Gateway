@@ -2,6 +2,10 @@ import { RequestHandler, Response, NextFunction, Request } from "express";
 import { ZodType } from "zod";
 import * as z from "zod";
 
+/**
+ * Creates a middleware that validates `req.body` against a Zod schema.
+ * Returns HTTP 400 when validation fails.
+ */
 export const validateSchema = <T extends ZodType>(
   schema: T,
 ): RequestHandler => {
